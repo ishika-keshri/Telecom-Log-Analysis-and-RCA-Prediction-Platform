@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reinforcement Learning</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff3e0;
+            margin: 0; padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            max-width: 500px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            color: #ef6c00;
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #e65100;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            border: 1.8px solid #ffcc80;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background: #fb8c00;
+            color: white;
+            padding: 12px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background: #e65100;
+        }
+        .result {
+            margin-top: 20px;
+            background: #ffe0b2;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: #e65100;
+            text-align: center;
+        }
+        .reward {
+            margin-top: 12px;
+            font-size: 20px;
+        }
+        .reward.positive {
+            color: #388e3c;
+        }
+        .reward.negative {
+            color: #d32f2f;
+        }
+        .back {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .back a {
+            color: #ef6c00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Reinforcement Learning Update</h2>
+        <form method="POST">
+            <label for="log_input">Enter Network Log:</label>
+            <input type="text" id="log_input" name="log_input" placeholder="Type your log here..." required />
+
+            <label for="actual_root_cause">Enter Actual Root Cause:</label>
+            <input type="text" id="actual_root_cause" name="actual_root_cause" placeholder="Actual root cause..." required />
+
+            <button type="submit">Submit & Update Model</button>
+        </form>
+
+        {% if predicted %}
+        <div class="result">
+            <p><strong>Predicted Root Cause:</strong> {{ predicted }}</p>
+            <p><strong>Confidence:</strong> {{ '%.2f'|format(confidence * 100) }}%</p>
+            <p class="reward {% if reward > 0 %}positive{% else %}negative{% endif %}">
+                Reward: {% if reward > 0 %}+1 (Correct) {% else %}-1 (Incorrect){% endif %}
+            </p>
+        </div>
+        {% endif %}
+
+        <div class="back">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
